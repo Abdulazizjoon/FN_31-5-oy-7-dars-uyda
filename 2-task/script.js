@@ -1,24 +1,24 @@
 let btn = document.querySelector("button");
 let wraper = document.querySelector(".wraper");
-let test = Math.trunc(Math.random() * 1000)
+let test = Math.trunc(Math.random() * 1000);
+let img=document.querySelector('img')
 console.log(test);
 
 btn.addEventListener("click", function () {
-  fetch(`https://www.metaweather.com/api/${test}`, {
+  fetch(`https://picsum.photos/800/600`, {
     method: "GET",
   })
     .then((response) => {
       if (response.status == 200) {
-        return response.json();
+        return response.blob(); 
       }
       throw new Error("Tarmoqdan javob topilmadi");
     })
     .then((data) => {
-      console.log(data);
-      wraper.innerHTML += data;
+      const url = URL.createObjectURL(data); 
+      img.setAttribute('src',url)
     })
     .catch((err) => {
       console.log(err);
-      wraper.innerHTML += err;
     });
 });
